@@ -5,7 +5,8 @@
 import json
 import sys
 sys.path.append("/home/oussama/github/AirBnB_clone")
-import models
+import models.base_model
+
 
 
 class File_Storage:
@@ -28,17 +29,21 @@ class File_Storage:
         key = str(obj.__class__.__name__) + "." + str(obj.id)
         value_dict = obj
         self.__objects[key] = value_dict
-
     def save(self):
         """
         Serializes the objects into JSON file
         """
-        objects_dict = {}
-        for key, val in self.__objects.items():
-            objects_dict[key] = val.to_dict()
+        new_objects={}
+        try:
+            for key,val in self.__objects.items():
+                if type(val)!= type(dict):
+                    new_objects[key]= val.to_dict()
+        except AttributeError:
+            pass
 
-        with open(self.__file_path, mode='w', encoding="UTF8") as fd:
-            json.dump(objects_dict, fd)
+
+        with open(self.__file_path, mode='w') as fd:
+            json.dump(new_objects, fd)
 
     def reload(self):
         """
@@ -46,11 +51,7 @@ class File_Storage:
         """
 
         try:
-            with open(self.__file_path, encoding="UTF8") as fd:
+            with open(self.__file_path, "r") as fd:
                 self.__objects = json.load(fd)
-            for key, val in self.__objects.items():
-                class_name = val["__class__"]
-                class_name = models.classes[class_name]
-                self.__objects[key] = class_name(**val)
         except FileNotFoundError:
             pass

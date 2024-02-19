@@ -7,8 +7,8 @@ BaseModel Parent class,
 import uuid
 from datetime import datetime
 import sys
-sys.path.append("/home/oussama/github/AirBnB_clone")
 import models
+sys.path.append("/home/oussama/github/AirBnB_clone")
 
 
 class BaseModel:
@@ -23,6 +23,7 @@ class BaseModel:
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
             models.storage.new(self)
+
         else:
             kwargs["created_at"] = datetime.strptime(kwargs["created_at"],
                                                      "%Y-%m-%dT%H:%M:%S.%f")
@@ -31,11 +32,6 @@ class BaseModel:
             for key, val in kwargs.items():
                 if "__class__" not in key:
                     setattr(self, key, val)
-
-    def __str__(self):
-        """String representation of a BaseModel instance"""
-        return ("[{}] ({}) {}".format(self.__class__.__name__,
-                                      self.id, self.__dict__))
 
     def __repr__(self):
         """
@@ -48,7 +44,7 @@ class BaseModel:
         """updates 'updated_at' instance with current datetime"""
         self.updated_at = datetime.now()
         models.storage.save()
-
+        
     def to_dict(self):
         """Return dictionary representation of BaseModel class."""
         nw_dct = dict(self.__dict__)

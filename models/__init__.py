@@ -7,4 +7,4 @@ try:
     storage = models.engine.file_storage.File_Storage()
     storage.reload()
 except json.decoder.JSONDecodeError :
-    print("er")
+    pass
