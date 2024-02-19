@@ -1,4 +1,10 @@
-body{
-    margin: 0px;
-    padding: 0px;
-}
+/*
+ * === Global style ===
+ */
+
+/* Body style */
+body {
+    margin: 0;
+    padding: 0;
+  }
+

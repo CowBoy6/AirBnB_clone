@@ -1,10 +1,15 @@
-footer{
-    background-color: green;
-    height:70px ;
-    width:100%;
-    display:flex;
+/*
+ * === Footer style ===
+ */
+
+/* Footer style */
+footer {
     align-items: center;
+    background-color: #0f0;
+    bottom: 0;
+    display: flex;
+    height: 60px;
     justify-content: center;
-    position: fixed;
-    bottom: 0px;
-}
+    position: absolute;
+    width: 100%;
+  }

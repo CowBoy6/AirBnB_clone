@@ -1,15 +1,12 @@
 #!/usr/bin/python3
 """
-    Define class FileS_torage Module
+    Define class FileStorage Module
 """
 import json
-import sys
-sys.path.append("/home/oussama/github/AirBnB_clone")
-import models.base_model
+import models
 
 
-
-class File_Storage:
+class FileStorage:
     """
         Serializes instances to JSON file and deserializes to JSON file.
     """
@@ -28,22 +25,18 @@ class File_Storage:
         """
         key = str(obj.__class__.__name__) + "." + str(obj.id)
         value_dict = obj
-        self.__objects[key] = value_dict
+        FileStorage.__objects[key] = value_dict
+
     def save(self):
         """
         Serializes the objects into JSON file
         """
-        new_objects={}
-        try:
-            for key,val in self.__objects.items():
-                if type(val)!= type(dict):
-                    new_objects[key]= val.to_dict()
-        except AttributeError:
-            pass
+        objects_dict = {}
+        for key, val in FileStorage.__objects.items():
+            objects_dict[key] = val.to_dict()
 
-
-        with open(self.__file_path, mode='w') as fd:
-            json.dump(new_objects, fd)
+        with open(FileStorage.__file_path, mode='w', encoding="UTF8") as fd:
+            json.dump(objects_dict, fd)
 
     def reload(self):
         """
@@ -51,7 +44,11 @@ class File_Storage:
         """
 
         try:
-            with open(self.__file_path, "r") as fd:
-                self.__objects = json.load(fd)
+            with open(FileStorage.__file_path, encoding="UTF8") as fd:
+                FileStorage.__objects = json.load(fd)
+            for key, val in FileStorage.__objects.items():
+                class_name = val["__class__"]
+                class_name = models.classes[class_name]
+                FileStorage.__objects[key] = class_name(**val)
         except FileNotFoundError:
             pass

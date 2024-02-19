@@ -5,10 +5,9 @@
 """
 
 import unittest
-import sys
-sys.path.append('/home/oussama/github/AirBnB_clone') 
-import models.base_model
+from models.base_model import BaseModel
 from io import StringIO
+import sys
 import datetime
 
 
@@ -21,7 +20,7 @@ class TestBase(unittest.TestCase):
         """
             Initializing instance.
         """
-        self.my_model = models.base_model.BaseModel()
+        self.my_model = BaseModel()
         self.my_model.name = "Binita Rai"
 
     def TearDown(self):
@@ -40,7 +39,7 @@ class TestBase(unittest.TestCase):
         """
             Checks that the ids between two instances are different.
         """
-        new_model = models.base_model.BaseModel()
+        new_model = BaseModel()
         self.assertNotEqual(new_model.id, self.my_model.id)
 
     def test_name(self):
@@ -116,7 +115,7 @@ class TestBase(unittest.TestCase):
             key value pair.
         """
         my_model_dict = self.my_model.to_dict()
-        new_model = models.base_model.BaseModel(**my_model_dict)
+        new_model = BaseModel(**my_model_dict)
         self.assertEqual(new_model.id, self.my_model.id)
 
     def test_type_created_at(self):
@@ -125,7 +124,7 @@ class TestBase(unittest.TestCase):
             data type is datetime.
         """
         my_model_dict = self.my_model.to_dict()
-        new_model = models.base_model.BaseModel(my_model_dict)
+        new_model = BaseModel(my_model_dict)
         self.assertTrue(isinstance(new_model.created_at, datetime.datetime))
 
     def test_type_updated_at(self):
@@ -134,7 +133,7 @@ class TestBase(unittest.TestCase):
             data type is datetime.
         """
         my_model_dict = self.my_model.to_dict()
-        new_model = models.base_model.BaseModel(my_model_dict)
+        new_model = BaseModel(my_model_dict)
         self.assertTrue(isinstance(new_model.updated_at, datetime.datetime))
 
     def test_compare_dict(self):
@@ -143,6 +142,6 @@ class TestBase(unittest.TestCase):
             dictionary values are same.
         """
         my_model_dict = self.my_model.to_dict()
-        new_model = models.base_model.BaseModel(**my_model_dict)
+        new_model = BaseModel(**my_model_dict)
         new_model_dict = new_model.to_dict()
         self.assertEqual(my_model_dict, new_model_dict)
