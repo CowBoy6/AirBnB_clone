@@ -1,20 +1,12 @@
-/*
- * === Global style ===
- */
-
-/* Body style */
-body {
-    color: #484848;
-    font: 14px Circular, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  }
-  
-  /* Container style */
-  .container {
-    margin: 30px auto;
+body{
+    margin: 0px;
+    padding: 0px;
+    font-family:Circular,"Helvetica Neue",Helvetica,Arial,sans-serif; 
+}
+.container{
+    margin-left: auto;
+    margin-right: auto;
     max-width: 1000px;
-  }
-  
-  /* Strong style */
-  strong {
-    font-weight: bold;
-  }
+    margin-top:30px;
+    margin-bottom:30px;
+}
